@@ -1,0 +1,15 @@
+AWSTemplateFormatVersion: 2010-09-09
+Resources:
+  S3Bucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: cf-stack-infra
+      AccessControl: AwsExecRead
+      DeletionPoliciy: Retain
+      UpdateReplacePolicy: Retain
+Outputs:
+  WebsiteURL:
+    Value: !GetAtt
+      - S3Bucket
+      - WebsiteURL
+    Description: This outputs gives URL for S3 Bucket
