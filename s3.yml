@@ -2,11 +2,9 @@ AWSTemplateFormatVersion: 2010-09-09
 Resources:
   S3Bucket:
     Type: 'AWS::S3::Bucket'
+    DeletionPolicy: Retain
     Properties:
-      BucketName: cf-stack-infra
-      AccessControl: AwsExecRead
-      DeletionPoliciy: Retain
-      UpdateReplacePolicy: Retain
+      BucketName: cf-stack-infra    
 Outputs:
   WebsiteURL:
     Value: !GetAtt
