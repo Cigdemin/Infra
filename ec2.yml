@@ -2,7 +2,7 @@ AWSTemplateFormatVersion: 2010-09-09
 Resources:
   Ec2Instance:
     Type: AWS::EC2::Instance
-    DependsOn: InstanceSecurityGroup
+    DependsOn: Fn::GetAtt: InstanceSecurityGroup.GroupId
     Properties:
       ImageId: "ami-08a52ddb321b32a8c"
       InstanceType: "t2.micro"
@@ -11,7 +11,8 @@ Resources:
       SecurityGroups: "Infra-man-instance-sg"
   InstanceSecurityGroup:
     Type: AWS::EC2::SecurityGroup
-    Properties:
+    Properties: 
+      VpcId: DefaultVpc
       GroupName: Infra-man-instance-sg
       GroupDescription: This securtiy group check rules for management instance for our Infra
       SecurityGroupIngress:
@@ -20,7 +21,7 @@ Resources:
         ToPort: 80
         CidrIp: 0.0.0.0/0
       SecurityGroupEgress:
-      - IpProtocol: tcp
+      - IpProtocol: "-1"
         FromPort: 80
         ToPort: 80
-        CidrIp: 0.0.0.0/0
+        CidrIp: 0.0.0.0/0x
